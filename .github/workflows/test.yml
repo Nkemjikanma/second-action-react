@@ -1,0 +1,24 @@
+name: Test on Push
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code # get code from repo to server ubuntu
+        uses: actions/checkout@v3
+
+        # in ubuntu latest, nodejs is installed by default
+      - name: Install nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+        # install dependencies
+      - name: Install dependencies
+        run: npm ci # we can use npm install but npm ci is safe...
+
+        # run test
+      - name: run tests
+        run: npm test
